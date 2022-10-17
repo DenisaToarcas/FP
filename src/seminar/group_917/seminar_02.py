@@ -70,7 +70,7 @@ def start():
 
     while True:
         print("1. Generate complex numbers")
-        print("2. Sort the numbers in increaseing order of modulo")
+        print("2. Sort the numbers in increasing order of modulo")
         print("0. Exit")
 
         opt = input(">")
