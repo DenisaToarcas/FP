@@ -30,8 +30,8 @@ def insert_sort(array : list, step : int):
     And then, sorting is done on first 2/3 part to ensure that the array is sorted.
 """
 def stooge_sort(array : list, step : int):
-    left = 1                    #left is the lower bound of the subarray which needs to be sorted
-    right = len(array)          #right is the upper bound of the subarray that needs to be sorted
+    left = 0                    #left is the lower bound of the subarray which needs to be sorted
+    right = len(array) -1          #right is the upper bound of the subarray that needs to be sorted
     step_counter = 0            #step_counter retains the number of operations or passes did by the program.
                                 # This is further compared to 'step' tp verify whether we need to display the partially sorted array or not.
     sort_with_stooge(array, left, right, step, step_counter)
