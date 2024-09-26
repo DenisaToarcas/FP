@@ -1,0 +1,202 @@
+Let's sum up the last two seminars and get an overview of the problem solving methods we talked about.
+We need to answer the following questions for each tecnhique:
+    1) Principles
+    2) Elements we need to identify/define
+    3) Examples of problems that can be solved with technique/known algorithms which use the approach
+    4) When to apply? (generally)
+
+--------------------------------------------------------------------
+
+Divide&Conquer
+1) Principles
+
+DIVIDE: divide the problem into a number of subproblems that are smaller instances
+        of the same problem
+CONQUER: conquer the subproblems by solving them recursively; if problem size is small enough,
+        solve in straightforward manner
+COMBINE: combine the solutions to the subproblems into the solution to the original problem
+
+!! Sometimes we also have to solve subproblems that are not quite the same as the original subproblem
+-> we consider it part of the COMBINE step
+
+2) Elements we need to identify/define
+Identify:
+    -> recursive case
+    -> base case
+
+3) Examples
+
+1. Compute the sum of the elements of a given list.
+
+2. Compute sum 1x2 + 2x3 + 3x4 +... + n(n+1).
+
+3. Determine maximum/minimum from a given list.
+
+4. Determine the number of occurrence of a number in a given list.
+
+5. Compute greatest common divisor for the elements in a given list.
+
+
+4) When to apply?
+    -> when problem can be decomposed in simpler subproblems that are of the same type (or
+     closely related type)
+    -> when the problem can be decomposed in independent subproblems (i.e. they
+    are solved separately; solution to one subproblem does not affect solution to
+    another subproblem)
+
+---------------------------------------------------------------------
+Backtracking
+
+1) Principles
+-> Given the formalization of a problem solution as a vector
+-> progressively build the solution vector starting from the first element
+    and adding next elements, checking if the partial configuration can lead
+    to a solution, and going back to the previous element in the solution if
+    it cannot
+2) Elements we need to identify/define
+
+-> the formalization of the problem solution as a vector
+        x = [x1, x2, ..., xn]
+-> the search space: x ∈ A, A = A1 x A2 x ... x An (cartesian product of sets Ai, i=1,..,n)
+    = what values can each of the elements of the solution take?
+-> candidate solution = partial configuration that can lead to a solution to the problem
+        x = [x1, x2, ..., xk]
+        where k = number of elements/components already added to the partial configuration
+-> consistent(candidate_solution) function
+    = function that checks if a partial configuration (the candidate_solution given as parameter)
+            can lead to a solution
+-> solution(candidate_solution) function
+    = function that checks if the given candidate solution is a solution to the problem
+
+
+3) Example problems
+
+BT can be applied for problems which fulfill the following conditions:
+    -> the solution to the problem can be formalized as a vector(list) [x1, x2, ..., xn],
+        where xi takes values from a set Ai, each set Ai is finite
+
+
+1. Read a word formed from a maximum of 10 distinct lowercase letters. Display the
+    anagrams of the read word:
+   a) all anagrams, in lexicographic order
+   b) anagrams that do not contain two adjacent vowels or two adjacent consonants
+            (i.e., vowels and consonants must alternate).
+
+2. Read a natural number n. Generate and display all combinations of 2*n+1 binary digits that
+    do not have two adjacent 1 digits.
+
+3. Read a natural number n with at most 9 digits. Display all ways to write n as a product
+    of distinct proper divisors of s.
+
+4. Read two natural numbers n and s (n<=10, s<=20). Display in ascending order all
+    n-digit numbers whose digit sum is equal to s, and any two adjacent digits have different parity.
+
+5. Read a natural number n. Display the permutations of the set 1,2,...,n in which
+   the even elements are fixed points (they are in positions equal to their value).
+
+6. Display all increasing subsequences of length>1 for a given list of n numbers.
+
+
+4) When to apply?
+
+-> suitable for when we need more than one solution or all solutions to
+    a problem as it is a method that systematically goes over all possible
+    configurations in the search space
+-> when high complexity is not an issue - backtracking method has exponential
+    time complexity
+
+
+----------------------------------------------------------------------
+
+Greedy
+
+1) Principles
+
+-> builds solution in small steps
+-> at each step, make choice that looks best in the moment
+    (and hope (well, ideally, prove, but it can be non-trivial to do so)
+     it leads to globally optimal solution)
+
+
+
+2) Elements we need to identify/define
+
+1. Candidate set: where we take elements of the solution from
+2. Selection function: selecting best candidate at a given moment
+    -> which rule to use for local selection (a lot of rules can be used
+    and even seem suitable/correct - verify your intuitions!)
+3. Acceptable function: verifies if a given candidate can be added to the
+        current solution/if the (partial) solution with the given candidate appended
+        follows the defined rules for validity
+4. Solution function: checks if the current partial solution represents a complete solution
+        to the problem
+5. Objective function: assigns a value to each (partial) solution
+
+3) Examples
+
+1. Activity scheduling problem and variants
+2. Fractional knapsack
+
+See also: https://www.geeksforgeeks.org/greedy-algorithms/
+
+4) When to apply?
+
+If by making the locally optimal choice we
+    arrive at a globally optimal solution
+
+----------------------------------------------------------------------
+
+Dynamic programming
+
+1) Principles
+
+-> similar tp D&C, solves subproblems and combines their solutions to obtain the
+    global solution, but in contrast to D&C, subproblems overlap
+-> 2 approaches
+    ->top-down with memoization
+        -> write the recursive solution
+        -> save results for subproblems (memoization)
+        -> when solving, check if solution was computed before, if yes, return saved value
+            else compute it
+    ->bottom-up:
+        ->solve smallest problems first
+        ->when solving a particular problem, we have already computed solutions to
+            the subproblems we need to base our decision on
+        ->use table/matrix to store results for each subproblem, fill in as you go along
+            based on previously obtained results
+
+2) Elements we need to identify/define
+
+->prove principle of optimality holds
+    - global optimum implies partial optimum
+->define structure of optimal solution
+->define recurrence that says how global optimum
+can be obtained from partial optima
+->implement recursively/iteratively based on recurrence
+
+3) Examples
+
+1. Cutting a rod
+2. Longest common subsequence
+3. Longest increasing subsequence
+4. Subset sum
+
+See also: https://www.geeksforgeeks.org/dynamic-programming/
+
+4) When to apply?
+-> in optimization problems that have the following characteristics:
+        ->optimal substructure
+            -> a problem exhibits this if an optimal solution contains within it
+                optimal solutions to subproblems
+        ->overlapping subproblems
+            -> implies that some subproblems get solved repeatedly
+-> in contrast to D&C, DP is applicable when problems overlap in the sense that problems
+    share subproblems, and they may get solved repeatedly; D&C generally solves brand-new
+    problems at each step
+
+-> in contrast to Greedy, dynamic programming finds optimal solutions to subproblems
+        and then uses them to make an informed choice in order to build the solution;
+        Greedy first makes the choice, chooses the most promising candidate at that point
+        without solving all possible related smaller subproblems
+
+----------------------------------------------------------------------
